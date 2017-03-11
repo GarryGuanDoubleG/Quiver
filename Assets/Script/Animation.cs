@@ -56,7 +56,7 @@ public class Animation : MonoBehaviour
     {
         if(prevState == State.Jumping)
         {
-            //landing.Play();
+            //landing.Play(); //play sound
         }
 
         //higher priorities get played
