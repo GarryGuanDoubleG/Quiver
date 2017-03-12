@@ -40,8 +40,10 @@ public class AttackState : AIState {
                 break;
             case AIEvent.Collision:
                 {
-                    if(other.tag == "LeftWP" || other.tag == "RightWP")
+                    if (other.tag == "LeftWP" || other.tag == "RightWP")
+                    {
                         self.speed = 0;
+                    }                    
                 }
                 break;       
         }

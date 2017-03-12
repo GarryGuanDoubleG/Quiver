@@ -36,24 +36,23 @@ public class Enemy : MonoBehaviour
         enemyAttackState = new AttackState();
     }
     
-    public virtual void EnemyInit()
+    public void EnemyInit()
     {
         if (!player)
             player = GameObject.FindWithTag("test");
+
+        idleState = Enemy.enemyIdleState;
+        patrolState = Enemy.enemyPatrolState;
+        attackState = Enemy.enemyAttackState;
 
         speed = base_speed;
         currState = enemyPatrolState;
     }
 
     // Use this for initialization
-    void Start ()
+    public void Start ()
     {
         EnemyInit();
-
-        idleState = Enemy.enemyIdleState;
-        patrolState = Enemy.enemyPatrolState;
-        attackState = Enemy.enemyAttackState;
-       
     }
 
     public void OnTriggerEnterWeakspot(Collider other)
@@ -68,17 +67,17 @@ public class Enemy : MonoBehaviour
         currState.HandleEvent(AIEvent.Collision, this, other);
     }
 
-    public void OnTriggerEnterAttackRange(Collider other)
+    public virtual void OnTriggerEnterAttackRange(Collider other)
     {
         currState.HandleEvent(AIEvent.EnterRange, this, other);
     }
 
-    public void OnTriggerExitAttackRange(Collider other)
+    public virtual void OnTriggerExitAttackRange(Collider other)
     {
         currState.HandleEvent(AIEvent.ExitRange, this, other);
     }
 
-    public void EnemyUpdate()
+    public virtual void EnemyUpdate()
     {
         stateChangeDelay -= Time.deltaTime;
         moveDelay -= Time.deltaTime;

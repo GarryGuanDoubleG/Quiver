@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SentinalIdle : IdleState {
-
-
+public class SentinalIdle : IdleState
+{
     public override void HandleEvent(AIEvent aiEvent, Enemy self)
     {
         switch (aiEvent)
@@ -21,10 +20,10 @@ public class SentinalIdle : IdleState {
 
     public override void HandleEvent(AIEvent aiEvent, Enemy self, Collider other)
     {
-        if(other.tag == "test")
-        {
-            HandleEvent(AIEvent.TriggerAttack, self);
-        }
+        //if(other.tag == "test")
+        //{
+        //    HandleEvent(AIEvent.TriggerAttack, self);
+        //}
     }
     // Update is called once per frame
     public override void AiUpdate (Enemy self)
