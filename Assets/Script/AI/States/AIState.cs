@@ -8,33 +8,18 @@ public enum AIEvent
     TriggerIdle,
     TriggerPatrol,
 
-    Collision
+    Collision,
+
+    EnterRange,
+    ExitRange
 }
 
-public class AIState
+public abstract class AIState
 {
-    public static GameObject player;
+    public virtual void HandleEvent(AIEvent aiEvent, Enemy self) { }
 
-    public virtual void OnValidate()
-    {
-        if(!player)
-        {
-            player = GameObject.FindWithTag("Player");
-        }
-    }
-
-    public virtual  void HandleEvent(AIEvent aiEvent, Enemy self)
-    {
-
-    }
-
-    public virtual void HandleEvent(AIEvent aiEvent, Enemy self, Collider other)
-    {
-
-    }
+    public virtual void HandleEvent(AIEvent aiEvent, Enemy self, Collider other) { }
 
     // Update is called once per frame
-    public virtual void AiUpdate (Enemy self) {		
-
-	}
+    public virtual void AiUpdate(Enemy self) { }
 }

@@ -15,6 +15,8 @@ public class PatrolState : AIState {
 
     }
 
+
+
     public void HandleEvent(AIEvent aiEvent, Enemy self)
     {
         switch (aiEvent)
@@ -30,16 +32,37 @@ public class PatrolState : AIState {
 
     public override void HandleEvent(AIEvent aiEvent, Enemy self, Collider other)
     {
-        if(other.tag == "Waypoint")
+        switch(aiEvent)
         {
-            self.speed *= -1;//reverse directions
+            case AIEvent.EnterRange:
+                {
+                    if (other.tag == "test")
+                    {
+                        HandleEvent(AIEvent.TriggerAttack, self);
+                    }
+                    break;
+                }                                
+            case AIEvent.Collision:
+                {
+                    Debug.Log("Collision");
+                    if(other.tag == "Waypoint")
+                    {
+                        self.speed *= -1;                     
+                    }
+                    break;
+                }                
         }
+
     }
 
 
     // Update is called once per frame
     public override void AiUpdate(Enemy self)
     {
+        if (self.speed == 0)
+            self.speed = self.base_speed;
+
+        self.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f);
         float new_x = self.speed * Time.deltaTime + self.accel * Time.deltaTime * Time.deltaTime;
         Vector3 offset = new Vector3(new_x, 0, 0);
 

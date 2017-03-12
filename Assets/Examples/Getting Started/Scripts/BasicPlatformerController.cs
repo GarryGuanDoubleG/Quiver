@@ -114,7 +114,8 @@ namespace Spine.Unity.Examples {
 			velocity.x = 0;
 
 			//Calculate control velocity
-			if (!crouching) { 
+			if (!crouching) {                 
+
 				if (Input.GetButtonDown(JumpButton) && controller.isGrounded) {
 					//jump
 					jumpAudioSource.Stop();
