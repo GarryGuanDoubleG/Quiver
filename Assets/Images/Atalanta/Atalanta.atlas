@@ -1,0 +1,181 @@
+
+Atalanta.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arrow
+  rotate: true
+  xy: 115, 142
+  size: 359, 29
+  orig: 359, 29
+  offset: 0, 0
+  index: -1
+Body
+  rotate: false
+  xy: 323, 657
+  size: 153, 172
+  orig: 153, 172
+  offset: 0, 0
+  index: -1
+Bow_Bottom
+  rotate: true
+  xy: 276, 831
+  size: 173, 336
+  orig: 173, 336
+  offset: 0, 0
+  index: -1
+Bow_Top
+  rotate: true
+  xy: 614, 831
+  size: 173, 336
+  orig: 173, 336
+  offset: 0, 0
+  index: -1
+Braid 1
+  rotate: false
+  xy: 952, 842
+  size: 67, 162
+  orig: 67, 162
+  offset: 0, 0
+  index: -1
+Braid 2
+  rotate: true
+  xy: 478, 650
+  size: 30, 166
+  orig: 30, 166
+  offset: 0, 0
+  index: -1
+Braid 3
+  rotate: false
+  xy: 424, 490
+  size: 46, 165
+  orig: 46, 165
+  offset: 0, 0
+  index: -1
+Bun
+  rotate: false
+  xy: 472, 581
+  size: 84, 67
+  orig: 84, 67
+  offset: 0, 0
+  index: -1
+Hair
+  rotate: false
+  xy: 682, 725
+  size: 126, 104
+  orig: 126, 104
+  offset: 0, 0
+  index: -1
+Hand
+  rotate: false
+  xy: 2, 2
+  size: 74, 33
+  orig: 74, 33
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 222, 213
+  size: 79, 81
+  orig: 79, 81
+  offset: 0, 0
+  index: -1
+L_Foot
+  rotate: false
+  xy: 810, 720
+  size: 96, 52
+  orig: 96, 52
+  offset: 0, 0
+  index: -1
+L_Lower
+  rotate: false
+  xy: 222, 296
+  size: 99, 205
+  orig: 99, 205
+  offset: 0, 0
+  index: -1
+L_Upper
+  rotate: false
+  xy: 478, 682
+  size: 100, 147
+  orig: 100, 147
+  offset: 0, 0
+  index: -1
+Left Upper Arm
+  rotate: true
+  xy: 323, 325
+  size: 123, 85
+  orig: 123, 85
+  offset: 0, 0
+  index: -1
+Lower Left Arm
+  rotate: false
+  xy: 810, 774
+  size: 140, 55
+  orig: 140, 55
+  offset: 0, 0
+  index: -1
+Neck
+  rotate: true
+  xy: 146, 153
+  size: 52, 72
+  orig: 52, 72
+  offset: 0, 0
+  index: -1
+Quiver
+  rotate: false
+  xy: 2, 756
+  size: 272, 248
+  orig: 272, 248
+  offset: 0, 0
+  index: -1
+R_Foot
+  rotate: true
+  xy: 472, 483
+  size: 96, 52
+  orig: 96, 52
+  offset: 0, 0
+  index: -1
+R_Lower
+  rotate: false
+  xy: 323, 450
+  size: 99, 205
+  orig: 99, 205
+  offset: 0, 0
+  index: -1
+R_Upper
+  rotate: false
+  xy: 580, 682
+  size: 100, 147
+  orig: 100, 147
+  offset: 0, 0
+  index: -1
+Right Arm
+  rotate: true
+  xy: 146, 207
+  size: 294, 74
+  orig: 294, 74
+  offset: 0, 0
+  index: -1
+Skirt
+  rotate: true
+  xy: 115, 503
+  size: 251, 206
+  orig: 251, 206
+  offset: 0, 0
+  index: -1
+String_Bottom
+  rotate: false
+  xy: 2, 351
+  size: 111, 403
+  orig: 111, 403
+  offset: 0, 0
+  index: -1
+String_Top
+  rotate: false
+  xy: 2, 37
+  size: 111, 312
+  orig: 111, 312
+  offset: 0, 0
+  index: -1

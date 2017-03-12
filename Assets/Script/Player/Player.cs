@@ -35,5 +35,10 @@ public class Player : MonoBehaviour {
             transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
             faceRight = true;
         }
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            transform.position += new Vector3(0, 10, 0);
+        }
 	}
 }

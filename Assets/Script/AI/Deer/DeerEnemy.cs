@@ -27,14 +27,11 @@ public class DeerEnemy : Enemy
 
     public void OnTriggerEnterWeakspot(Collider other)
     {
-        Debug.Log("trigger body deer");
         Destroy(gameObject);
     }
 
     public void OnTriggerEnterBody(Collider other)
     {
-        Debug.Log("trigger body deer");
-
         if (other.tag == "PlayerArrow")
             Destroy(other.gameObject);
 
@@ -43,25 +40,18 @@ public class DeerEnemy : Enemy
 
     public void OnTriggerEnterAttackRange(Collider other)
     {
-        Debug.Log("trigger body deer");
         currState.HandleEvent(AIEvent.EnterRange, this, other);
     }
 
     public void OnTriggerExitAttackRange(Collider other)
     {
-        Debug.Log("trigger body deer");
+
         currState.HandleEvent(AIEvent.ExitRange, this, other);
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (currState == idleState)
-            Debug.Log("Deer idle");
-        else if (currState == patrolState)
-            Debug.Log("Deer patrol");
-        else if (currState == deerAlert)
-            Debug.Log("Deer alert");
 
         EnemyUpdate();
     }

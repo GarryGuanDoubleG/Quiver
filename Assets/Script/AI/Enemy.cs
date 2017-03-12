@@ -24,11 +24,10 @@ public class Enemy : MonoBehaviour
     public float speed = 2.5f;
     public float accel = 0.25f; //multiply this by speed
 
+    public float stateChangeDelay = 0;
     public float moveDelay;
     public float animDelay;
-    public float patrolDelay;
-
-    public Coroutine stateSwitch;
+    public float patrolDelay;    
 
     void Awake()
     {
@@ -47,7 +46,8 @@ public class Enemy : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         EnemyInit();
 
         idleState = Enemy.enemyIdleState;
@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyUpdate()
     {
+        stateChangeDelay -= Time.deltaTime;
         moveDelay -= Time.deltaTime;
         animDelay -= Time.deltaTime;
         patrolDelay -= Time.deltaTime;
