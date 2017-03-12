@@ -5,11 +5,19 @@ using UnityEngine;
 public class AttackRange : MonoBehaviour {
 
     public Enemy parent;
+    public static float alertRate = .1f;
+
+    public float delay = 0;
+
 	// Use this for initialization
 	void Start () {       
         parent = GetComponentInParent<Enemy>();        
 	}
 
+    private void Update()
+    {
+        delay -= Time.deltaTime;
+    }
     void OnTriggerEnter(Collider other)
     {
         parent.OnTriggerEnterAttackRange(other);
@@ -17,7 +25,11 @@ public class AttackRange : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        parent.OnTriggerEnterAttackRange(other);
+        if (delay <= 0)
+        {
+            parent.OnTriggerEnterAttackRange(other);
+            delay = alertRate;
+        }
     }
 
     void OnTriggerExit(Collider other)

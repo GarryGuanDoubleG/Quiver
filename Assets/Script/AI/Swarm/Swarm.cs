@@ -10,9 +10,10 @@ public class Swarm : Enemy
     public static float maxForce = 3.0f;
 
     public Vector3 currVel;
-
+    public Vector3 currForce;
     public float rotationSpeed = 4.0f;
     public float maxFlockSpeed = 10.0f;
+
 
     // Use this for initialization
     void Start ()
@@ -36,20 +37,22 @@ public class Swarm : Enemy
         }
         else
         {
-            if(Vector3.Distance(transform.position, player.transform.position) > 10.0f)
-            {
-                speed = base_speed * 2;
-                Steer();
-            }
-            else
-            {
-                if (speed >= maxSpeed)
-                    speed = maxSpeed;
+            speed = base_speed * 2;
+            Steer();
+            //if (Vector3.Distance(transform.position, player.transform.position) > 10.0f)
+            //{
+            //    speed = base_speed * 2;
+            //    Steer();
+            //}
+            //else
+            //{
+            //    if (speed >= maxSpeed)
+            //        speed = maxSpeed;
 
-                ApplyFlock();
+            //    ApplyFlock();
 
-                transform.Translate(0, 0, Time.deltaTime * speed);
-            }
+            //    transform.Translate(0, 0, Time.deltaTime * speed);
+            //}
             
         }
 	}
@@ -59,8 +62,11 @@ public class Swarm : Enemy
         Vector3 desiredDir = Vector3.Normalize(player.transform.position - transform.position) * maxSpeed;
         Vector3 steering = desiredDir - currVel;
 
-        currVel = (steering + currVel) * base_speed;
-
+        currVel = (steering + currVel) * speed;
+        if(currVel.magnitude > maxSpeed)
+        {
+            currVel = currVel.normalized * maxSpeed;
+        }
         currVel.z = 0;
 
         transform.position += currVel * Time.deltaTime;
@@ -95,66 +101,61 @@ public class Swarm : Enemy
         return Vector3.zero;
     }
 
+    Vector3 Cohesion()
+    {
+        float neighborDist = 4.0f;
+        Vector3 sum = Vector3.zero;
+        int count = 0;
+
+        foreach (Swarm swarmie in controller.swarm)
+        {
+            if (swarmie == this)
+                continue;
+            float dist = Vector3.Distance(transform.position, swarmie.transform.position);
+
+            if (dist < neighborDist)
+            {
+                sum += swarmie.transform.position;
+                count++;
+            }
+        }
+
+        if (count > 0)
+        {
+            sum /= count;
+            return (sum - currVel);
+        }
+
+        return Vector3.zero;
+    }
+
     void ApplyFlock()
     {
-        Swarm[] swarm = controller.swarm;
-
-        Vector3 center = Vector3.zero;
-        Vector3 avoid = Vector3.zero; //avoid neighbors
-
-        float neighborHood = 5.0f;
-        float neighborDist = 1.0f;
-
-        float groupSpeed = speed;
-        float groupSize = 0;
-
-        foreach (Swarm flockie in swarm)
+       if(Random.Range(0, 10) <= 1)
         {
-            if (flockie != this)
-            {
-                float dist = Vector3.Distance(flockie.transform.position, transform.position);
+            Vector3 vecAligh = Align();
+            Vector3 vecCohension = Cohesion();
 
-                if (dist <= neighborHood)
-                {
+            Vector3 targetDir = (player.transform.position - transform.position);
 
-                    groupSize++;
-                    center += flockie.transform.position;
-
-                    if (dist < neighborDist)
-                    {
-                        avoid = avoid + (this.transform.position - flockie.transform.position);
-                    }
-                    
-                    groupSpeed += flockie.speed;
-                }
-            }
+            currForce = vecAligh + vecCohension + targetDir;
+            currForce = currForce.normalized;
         }
 
-
-        if (groupSize > 0)
+        currForce.z = 0;       
+        if(currForce.magnitude > maxForce)
         {
-            center = center / groupSize + player.transform.position - transform.position;
-
-            speed = groupSpeed / groupSize;
-
-            Debug.Log("Speed is " + speed);
-
-            Vector3 direction = (center + avoid) - transform.position;
-
-            float z = direction.y;
-            direction.y = 1;
-            //direction.z = z;
-
-            if (direction != Vector3.zero)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                                                        Quaternion.LookRotation(direction),
-                                                        rotationSpeed * Time.deltaTime);
-            }
-
+            currForce = currForce.normalized * maxForce;            
         }
 
+        this.GetComponent<Rigidbody>().AddForce(currForce);
 
+        if (this.GetComponent<Rigidbody>().velocity.magnitude > maxSpeed )
+        {
+            this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity.normalized * maxSpeed;            
+        }
+
+        
     }
 
     public override void OnTriggerEnterAttackRange(Collider other)
