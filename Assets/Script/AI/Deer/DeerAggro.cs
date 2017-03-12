@@ -67,10 +67,17 @@ public class DeerAggro : AttackState {
         if (self.speed == 0)
             return;
 
-        self.speed = 1.33f * (Enemy.player.transform.position.x >= self.transform.position.x ? -self.base_speed : self.base_speed);                
+        if(Enemy.player.transform.position.x >= self.transform.position.x)
+        {
+            self.speed = -1.0f * self.base_speed * 1.33f;
+        }
+        else
+        {
+            self.speed = self.base_speed * 1.33f;
+        }
 
 
-        float xoffset = Mathf.Abs(self.speed * Time.deltaTime + self.speed * self.accel * Time.deltaTime * Time.deltaTime);
+        float xoffset = self.speed * Time.deltaTime + self.speed * self.accel * Time.deltaTime * Time.deltaTime;
         
 
         self.transform.position += new Vector3(xoffset, 0, 0);

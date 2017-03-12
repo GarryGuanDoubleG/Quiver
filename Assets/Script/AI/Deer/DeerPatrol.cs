@@ -26,8 +26,7 @@ public class DeerPatrol : PatrolState
                 self.currState = self.idleState;
                 break;
             case AIEvent.TriggerAttack:
-                self.currState = self.attackState;
-                self.currState.HandleSwitch(self);
+                HandleSwitch(self.attackState, self);
                 break;
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeerEnemy : Enemy
 {
     public static DeerAggro deerAlert;
-    public static float StateSwitchDelay = 2.0f;    
+    public static float StateSwitchDelay = 2.5f;    
 
     private void Awake()
     {

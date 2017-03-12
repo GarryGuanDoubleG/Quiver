@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     public Projectile projectile;
     public bool faceRight = true;
 
-
+    public float speed = 5.0f;
 	// Use this for initialization
 	void Start () {
 		
@@ -27,10 +27,12 @@ public class Player : MonoBehaviour {
         }
         if(Input.GetAxis("Horizontal") < 0)
         {
+            transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
             faceRight = false;
         }
         else if(Input.GetAxis("Horizontal") > 0)
         {
+            transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
             faceRight = true;
         }
 	}
