@@ -41,23 +41,30 @@ public class SentinalPatrol : PatrolState {
                     {
                         if (self.patrolDelay <= 0)
                         {
+                            bool switchStates = false;
+
                             if (other.tag == "LeftWP")
                             {
                                 self.speed = self.base_speed;
+                                switchStates = true;
                             }
                             else if (other.tag == "RightWP")
                             {
                                 self.speed = -self.base_speed;
+                                switchStates = true;          
                             }
 
-                            self.stateChangeDelay = Sentinal.SentinalTurnDelay;
-                            self.currState = self.idleState;
+                            if (switchStates)
+                            {
+                                self.stateChangeDelay = Sentinal.SentinalTurnDelay;
+                                self.currState = self.idleState;
+                            }
                         }
                     }
                     break;
+                }
             }
         }
-    }
 
     // Update is called once per frame
     public override void AiUpdate(Enemy self)

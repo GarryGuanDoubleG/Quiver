@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "U8R93gLyOWInesSIXgIjxDV77zU", "spine": "3.5.51", "width": 576, "height": 874, "images": "./Atalanta_Pullback/images/" },
+"skeleton": { "hash": "U8R93gLyOWInesSIXgIjxDV77zU", "spine": "3.5.51", "width": 576, "height": 874, "images": "./images/" },
 "bones": [
 	{ "name": "Hip", "x": -2.13, "y": 384.81 },
 	{ "name": "Body", "parent": "Hip", "length": 161.3, "rotation": 95.67, "x": -4.17, "y": 0.15 },
