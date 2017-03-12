@@ -36,31 +36,22 @@ public class Swarm : Enemy
             EnemyUpdate();
         }
         else
-        {
-            speed = base_speed * 2;
-            Steer();
-            //if (Vector3.Distance(transform.position, player.transform.position) > 10.0f)
-            //{
-            //    speed = base_speed * 2;
-            //    Steer();
-            //}
-            //else
-            //{
-            //    if (speed >= maxSpeed)
-            //        speed = maxSpeed;
+        {            
+            if (Vector3.Distance(transform.position, player.transform.position) > 2.0f)
+            {
+                speed = base_speed * 2;
+                Steer();
+            }
 
-            //    ApplyFlock();
-
-            //    transform.Translate(0, 0, Time.deltaTime * speed);
-            //}
-            
         }
-	}
+    }
 
     void Steer()
     {
         Vector3 desiredDir = Vector3.Normalize(player.transform.position - transform.position) * maxSpeed;
         Vector3 steering = desiredDir - currVel;
+
+        steering = steering.normalized * maxForce;
 
         currVel = (steering + currVel) * speed;
         if(currVel.magnitude > maxSpeed)
@@ -160,7 +151,8 @@ public class Swarm : Enemy
 
     public override void OnTriggerEnterAttackRange(Collider other)
     {
-        controller.ActivateSwarm();
+        if(other.tag == "test")
+            controller.ActivateSwarm();
     }
 
     public void AttackPlayer()

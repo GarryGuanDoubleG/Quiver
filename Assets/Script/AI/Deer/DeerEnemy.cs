@@ -34,6 +34,9 @@ public class DeerEnemy : Enemy
     {
         if (other.tag == "PlayerArrow")
             Destroy(other.gameObject);
+        if (other.tag == "Enemy")
+            return;
+
 
         currState.HandleEvent(AIEvent.Collision, this, other);
     }
