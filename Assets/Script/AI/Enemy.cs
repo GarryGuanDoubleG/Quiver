@@ -17,8 +17,6 @@ public class Enemy : MonoBehaviour
 
     public Transform[] wayPoints;
 
-    public Coroutine currRoutine;
-
     private void Awake()
     {
         idleState = new IdleState();
@@ -35,8 +33,15 @@ public class Enemy : MonoBehaviour
 
 	}
 
+    public void OnTriggerEnterWeakspot(Collider other)
+    {
+        Destroy(gameObject);
+    }
+
     public void OnTriggerEnterBody(Collider other)
     {
+        if (other.tag == "PlayerArrow")
+            Destroy(other.gameObject);
         currState.HandleEvent(AIEvent.Collision, this, other);
     }
 

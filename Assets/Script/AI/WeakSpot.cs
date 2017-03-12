@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Body : MonoBehaviour {
+public class WeakSpot : MonoBehaviour {
 
     public Enemy parent;
     // Use this for initialization
@@ -12,10 +12,8 @@ public class Body : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other)
-    {    
-        parent.OnTriggerEnterBody(other);
+    {
+        if(other.tag == "PlayerArrow")
+            parent.OnTriggerEnterWeakspot(other);
     }
-
-
-
 }

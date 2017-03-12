@@ -15,10 +15,10 @@ public class AttackState : AIState {
         switch (aiEvent)
         {
             case AIEvent.TriggerIdle:
-                self.currState = Enemy.idleState;
+                self.currState = self.idleState;
                 break;
             case AIEvent.TriggerPatrol:                
-                self.currState = Enemy.patrolState;
+                self.currState = self.patrolState;
                 break;
         }
     }
