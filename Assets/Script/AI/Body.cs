@@ -16,6 +16,11 @@ public class Body : MonoBehaviour {
         parent.OnTriggerEnterBody(other);
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        parent.OnTriggerEnterBody(other);
+    }
+
 
 
 }

@@ -10,8 +10,10 @@ public class AttackState : AIState {
 
     }
 
-    public void HandleEvent(AIEvent aiEvent, Enemy self)
+
+    public override void HandleEvent(AIEvent aiEvent, Enemy self)
     {
+        
         switch (aiEvent)
         {
             case AIEvent.TriggerIdle:
@@ -25,7 +27,8 @@ public class AttackState : AIState {
 
     public override void HandleEvent(AIEvent aiEvent, Enemy self, Collider other)
     {
-        switch(aiEvent)
+
+        switch (aiEvent)
         {
             case AIEvent.ExitRange:
                 {
@@ -37,7 +40,8 @@ public class AttackState : AIState {
                 break;
             case AIEvent.Collision:
                 {
-                    self.speed = 0;
+                    if(other.tag == "LeftWP" || other.tag == "RightWP")
+                        self.speed = 0;
                 }
                 break;       
         }
@@ -49,7 +53,7 @@ public class AttackState : AIState {
         self.GetComponent<Renderer>().material.color = new Color(0.0f, 0.0f, 1.0f);
 
         //check if same platform
-        float speed = Mathf.Abs(self.speed);
+        float speed = 2 * Mathf.Abs(self.speed);
 
         Vector3 player_transorm = new Vector3(Enemy.player.transform.position.x, self.transform.position.y, 0);                            
         self.transform.position = Vector3.MoveTowards(self.transform.position, player_transorm, speed * Time.deltaTime);

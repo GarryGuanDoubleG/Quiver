@@ -16,6 +16,7 @@ public enum AIEvent
 
 public abstract class AIState
 {
+    public virtual void HandleSwitch(Enemy self) { }
     public virtual void HandleEvent(AIEvent aiEvent, Enemy self) { }
 
     public virtual void HandleEvent(AIEvent aiEvent, Enemy self, Collider other) { }

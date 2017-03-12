@@ -15,24 +15,33 @@ public class PatrolState : AIState {
 
     }
 
+    public virtual void HandleSwitch(AIState newState, Enemy self) {
+        self.currState = newState;
 
+        self.moveDelay = Enemy.StateSwitchDelay;
+        self.animDelay = Enemy.StateAnimDelay;
+    }
 
-    public void HandleEvent(AIEvent aiEvent, Enemy self)
+    public override void HandleEvent(AIEvent aiEvent, Enemy self)
     {
+        if (self.moveDelay >= 0)
+            return; 
+
         switch (aiEvent)
         {
-            case AIEvent.TriggerAttack:
-                self.currState = Enemy.attackState;
-                break;
             case AIEvent.TriggerIdle:
-                self.currState = Enemy.idleState;
+                HandleSwitch(self.idleState, self);
+                break;
+            case AIEvent.TriggerAttack:
+                HandleSwitch(self.attackState, self);
                 break;
         }
     }
 
     public override void HandleEvent(AIEvent aiEvent, Enemy self, Collider other)
     {
-        switch(aiEvent)
+
+        switch (aiEvent)
         {
             case AIEvent.EnterRange:
                 {
@@ -41,20 +50,26 @@ public class PatrolState : AIState {
                         HandleEvent(AIEvent.TriggerAttack, self);
                     }
                     break;
-                }                                
+                }
             case AIEvent.Collision:
                 {
-                    Debug.Log("Collision");
-                    if(other.tag == "Waypoint")
+                    if(self.patrolDelay <= 0)
                     {
-                        self.speed *= -1;                     
-                    }
+                        if (other.tag == "LeftWP")
+                        {
+                            self.speed = self.base_speed;
+                        }
+                        else if (other.tag == "RightWP")
+                        {
+                            self.speed = -self.base_speed;
+                        }
+
+                        self.patrolDelay = Enemy.StatePatrolDelay;
+                    }                    
                     break;
-                }                
+                }
         }
-
     }
-
 
     // Update is called once per frame
     public override void AiUpdate(Enemy self)
@@ -63,7 +78,7 @@ public class PatrolState : AIState {
             self.speed = self.base_speed;
 
         self.GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.0f);
-        float new_x = self.speed * Time.deltaTime + self.accel * Time.deltaTime * Time.deltaTime;
+        float new_x = self.speed * Time.deltaTime + self.speed * self.accel * Time.deltaTime * Time.deltaTime;
         Vector3 offset = new Vector3(new_x, 0, 0);
 
         self.transform.position += offset;

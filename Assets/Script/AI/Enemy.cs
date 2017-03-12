@@ -4,34 +4,57 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public static GameObject player;
+    public static GameObject player;    
     public AIState currState;
+    public AIState nextState;
 
-    public static IdleState idleState;
-    public static AttackState attackState;
-    public static PatrolState patrolState;
+    public static IdleState enemyIdleState;
+    public static PatrolState enemyPatrolState;
+    public static AttackState enemyAttackState;
 
-    public float speed;
+    public static float StateSwitchDelay = 0.5f;
+    public static float StateAnimDelay = 0.5f;
+    public static float StatePatrolDelay = 0.5f; // delay between wall collisions
+
+    public IdleState idleState;    
+    public PatrolState patrolState;
+    public AttackState attackState;
+    
     public float base_speed = 2.5f;
-    public float accel = 0.5f;
+    public float speed = 2.5f;
+    public float accel = 0.25f; //multiply this by speed
 
-    public Transform[] wayPoints;
+    public float moveDelay;
+    public float animDelay;
+    public float patrolDelay;
 
-    private void Awake()
+    public Coroutine stateSwitch;
+
+    void Awake()
     {
-        idleState = new IdleState();
-        attackState = new AttackState();
-        patrolState = new PatrolState();
+        enemyIdleState = new IdleState();
+        enemyPatrolState = new PatrolState();
+        enemyAttackState = new AttackState();
     }
-    // Use this for initialization
-    void Start () {
+    
+    public virtual void EnemyInit()
+    {
         if (!player)
             player = GameObject.FindWithTag("test");
 
         speed = base_speed;
-        currState = patrolState;
+        currState = enemyPatrolState;
+    }
 
-	}
+    // Use this for initialization
+    void Start () {
+        EnemyInit();
+
+        idleState = Enemy.enemyIdleState;
+        patrolState = Enemy.enemyPatrolState;
+        attackState = Enemy.enemyAttackState;
+       
+    }
 
     public void OnTriggerEnterWeakspot(Collider other)
     {
@@ -55,10 +78,19 @@ public class Enemy : MonoBehaviour
         currState.HandleEvent(AIEvent.ExitRange, this, other);
     }
 
+    public void EnemyUpdate()
+    {
+        moveDelay -= Time.deltaTime;
+        animDelay -= Time.deltaTime;
+        patrolDelay -= Time.deltaTime;
+
+        currState.AiUpdate(this);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        currState.AiUpdate(this);
+        EnemyUpdate();
     }
 
 

@@ -9,15 +9,15 @@ public class IdleState : AIState {
 
     }
 	
-    public void HandleEvent(AIEvent aiEvent, Enemy self)
+    public override void HandleEvent(AIEvent aiEvent, Enemy self)
     {
         switch (aiEvent)
         {
             case AIEvent.TriggerAttack:
-                self.currState = Enemy.attackState;
+                self.currState = self.attackState;
                 break;
             case AIEvent.TriggerPatrol:
-                self.currState = Enemy.patrolState;
+                self.currState = self.patrolState;
                 break;
         }
     }
